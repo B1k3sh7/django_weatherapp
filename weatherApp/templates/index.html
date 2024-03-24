@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- tailwind css cdn -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- font-awesome icons cdn -->
+    <script src="https://kit.fontawesome.com/307192de7c.js" crossorigin="anonymous"></script>
+    <title>Weather App</title>
+    <style>
+        section {
+            min-height: 100vh;
+            padding-top: 180px;
+        }
+        
+        #search-box button {
+            background: #55c2c3;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #search-box button:hover {
+            background: #3b9899;
+        }
+    </style>
+</head>
+<body>
+    <header class="w-full py-8 px-4 fixed top-0 left-0 flex jsutify-start items-center" style="background: #55c2c3;">
+        <img src="https://th.bing.com/th/id/OIP.CUtSYciqwgRRhSBUm2g3qgAAAA?pid=ImgDet&rs=1" alt="" class="w-12 rounded-full">
+        <span class="font-bold text-xl md:text-4xl capitalize ml-2">Check the weather</span>
+    </header>
+
+    <section class="px-6" style="background: #0c243c;">
+        <div class="w-full py-8" id="search-box">
+            <form action="" method="get" class="flex justify-center items-center w-full">
+                <input type="text" name="city" placeholder="Search with city name" value="{{given_city}}" class="rounded-lg py-4 px-3 outline-none w-1/2 sm:w-2/3">
+                <button type="submit" class="rounded-lg ml-3 px-5 font-medium sm:text-base py-4 text-sm uppercase text-white"><i class="fa fa-search mr-1"></i>Search</button>
+            </form>
+        </div>
+
+        <div class="rounded-lg shadow-lg py-6 px-8 sm:py-8 sm:px-10 bg-white mt-16">
+
+        {% if message == "not searched" %}
+
+            <div class="flex justify-center items-center">
+                <img src="https://th.bing.com/th/id/OIP.CUtSYciqwgRRhSBUm2g3qgAAAA?pid=ImgDet&rs=1" alt="" class="w-32 rounded-full">
+                <div class="ml-8">
+                    <h3 class="text-2xl font-bold capitalize">Weather data will appear here</h3>
+                </div>
+            </div>
+
+        {% elif message == "city not found" %}
+
+            <div class="flex justify-center items-center">
+                <img src="https://th.bing.com/th/id/OIP.CUtSYciqwgRRhSBUm2g3qgAAAA?pid=ImgDet&rs=1" alt="" class="w-32 rounded-full">
+                <div class="ml-8">
+                    <h3 class="text-2xl font-bold text-red-700 capitalize">ERROR: City not found</h3>
+                </div>
+            </div>
+
+        {% else %}
+        
+            <div class="flex justify-center items-center">
+                <img src="http://openweathermap.org/img/wn/{{icon}}.png" alt="" class="w-32 rounded-full">
+                
+                <div class="ml-8">
+                    <h3 class="text-2xl font-bold uppercase">{{city}} - {{weather}}</h3>
+                    <div class="font-light text-xl my-2 font-medium">{{temp_cel}} °C / {{temp_far}} °F </div>
+                    <div class="font-light text-base my-2 ">Feels like {{feels_like_cel}} °C</div>
+                    <div class="font-light text-base my-2 ">
+                        <span class="mr-1.5"><i class="fa fa-arrow-up"></i>{{temp_max_cel}} °C</span>
+                        <span class="mr-1.5"><i class="fa fa-arrow-down"></i>{{temp_min_cel}} °C</span></div>
+                    <div class="font-light text-2xl">Weather is {{description}}</div>
+                </div>
+            </div>
+
+            <div class="w-full flex justify-between items-center text-sm sm:text-base mt-5">
+                <div>
+                    <div class="uppercase font-light">Wind</div>
+                    <div class="font-bold">{{wind_speed}} m/s</div>
+                </div>
+                <div>
+                    <div class="uppercase font-light">Visibility</div>
+                    <div class="font-bold">{{visibility_km}} km</div>
+                </div>
+                <div>
+                <div class="uppercase font-light">Humidity</div>
+                <div class="font-bold pl-5">{{humidity}}</div>
+            </div>
+            <div>
+                <div class="uppercase font-light">Pressure</div>
+                <div class="font-bold">{{pressure}} mb</div>
+            </div>
+        </div>
+
+        {% endif %}
+
+        </div>
+
+    </section>
+    
+</body>
+</html>
